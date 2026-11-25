@@ -1,0 +1,12 @@
+# Datos originales (se descargan con scripts/build_dataset.py)
+data/raw/
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+.venv/
+venv/
+# Streamlit
+.streamlit/secrets.toml
+.DS_Store
