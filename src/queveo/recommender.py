@@ -52,6 +52,8 @@ class Recommender:
             Gl = self.G[liked_rows]
             dev = 5.0 - gmean
             aff = aff + (Gl * dev).sum(axis=0) / (Gl.sum(axis=0) + SHRINK)
+        # mantener el perfil dentro del rango observado en usuarios reales (evita extrapolar)
+        aff = np.clip(aff, -scale, scale)
 
         lo, hi = C.ERAS.get(q.era, (1900, 2100))
         if q.era != "Me da igual":
@@ -173,7 +175,7 @@ class Recommender:
             reasons.append("Se parece a las películas que te gustan")
         return reasons[:3]
 
-    def similar(self, tmdb_id: int, k: int = 6) -> pd.DataFrame:
+    def similar(self, tmdb_id: int, k: int = 6, exclude: list[int] | None = None) -> pd.DataFrame:
         i = self.idx[tmdb_id]
         sims = linear_kernel(self.M[i], self.M).ravel()
         g = self.G[i]
@@ -181,5 +183,8 @@ class Recommender:
         quality = ((self.cat["vote_average"] - 5) / 3).clip(0, 1).to_numpy()
         score = 0.6 * sims + 0.25 * jacc + 0.15 * quality
         score[i] = -1
+        for j in exclude or []:
+            if j in self.idx:
+                score[self.idx[j]] = -1
         top = np.argsort(-score)[:k]
         return self.cat.iloc[top].assign(similarity=score[top])
