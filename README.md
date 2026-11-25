@@ -2,7 +2,7 @@
 
 [![tests](https://github.com/JMunoz2004/Buscador-Predictivo-de-Entretenimiento-Cine-TV-/actions/workflows/tests.yml/badge.svg)](https://github.com/JMunoz2004/Buscador-Predictivo-de-Entretenimiento-Cine-TV-/actions/workflows/tests.yml)
 
-**Demo:** _pendiente de despliegue en Streamlit Community Cloud_
+**Demo:** https://queveohoy.streamlit.app/
 
 ![Captura de la aplicación](docs/img/app_escritorio.png)
 
@@ -82,9 +82,11 @@ streamlit run app.py
 
 ## Despliegue (Streamlit Community Cloud)
 
+La aplicación está desplegada en **https://queveohoy.streamlit.app/** y se actualiza automáticamente con cada push a `main`. Para desplegar una copia propia:
+
 1. Entrar en [share.streamlit.io](https://share.streamlit.io) con la cuenta de GitHub.
 2. *Create app* → repositorio `JMunoz2004/Buscador-Predictivo-de-Entretenimiento-Cine-TV-`, rama `main`, archivo `app.py`. En *Advanced settings*, Python 3.12.
-3. Opcional: en *Secrets*, añadir `TMDB_API_KEY = "..."` (clave gratuita de [themoviedb.org](https://www.themoviedb.org/settings/api)) para mostrar pósters, títulos en castellano y la disponibilidad real en España.
+3. En *Secrets*, añadir `TMDB_API_KEY = "..."` (clave gratuita de [themoviedb.org](https://www.themoviedb.org/settings/api)) para mostrar pósters, títulos en castellano y la disponibilidad real en España. La clave nunca se sube al repositorio. Sin ella la app funciona igual, con pósters generados y disponibilidad aproximada.
 
 ## Fuentes de datos
 - [TMDb 5000 Movie Dataset](https://www.kaggle.com/datasets/tmdb/tmdb-movie-metadata) (Kaggle / The Movie Database).
@@ -94,7 +96,7 @@ Se descargan desde copias públicas en GitHub indicadas en `src/queveo/config.py
 
 ## Limitaciones
 - TMDb 5000 contiene películas hasta 2016; todavía no hay series.
-- Sin clave de TMDb, la disponibilidad por plataforma es una **aproximación**: se deduce de la productora (Disney y Pixar en Disney+, Warner en HBO Max, MGM en Prime Video…) más una asignación estable que imita las licencias.
+- El **filtro** de plataformas usa todavía una **aproximación**: se deduce de la productora (Disney y Pixar en Disney+, Warner en HBO Max, MGM en Prime Video…) más una asignación estable que imita las licencias. Las etiquetas de plataforma que se muestran en cada película sí son reales (TMDb, España) cuando la clave de API está configurada, por lo que en algunos casos pueden no coincidir con el filtro.
 - MovieLens small tiene 671 usuarios; el modelo aprende patrones generales, no gustos individuales de quien usa la app.
 
 ## Plan de trabajo
@@ -104,11 +106,11 @@ Se descargan desde copias públicas en GitHub indicadas en `src/queveo/config.py
 | **Fase 1: Datos y EDA** | Extracción de TMDb y MovieLens, limpieza, imputación de nulos y análisis exploratorio. | ✅ |
 | **Fase 2: Feature engineering y modelo** | Perfiles de usuario, modelo híbrido, validación frente a baselines. | ✅ |
 | **Fase 3: Motor de recomendación** | Usuario sintético, match score explicable, películas similares. | ✅ |
-| **Fase 4: Frontend y despliegue** | Interfaz Streamlit adaptable a móvil y despliegue público. | 🔄 |
+| **Fase 4: Frontend y despliegue** | Interfaz Streamlit adaptable a móvil y despliegue público. | ✅ |
 
 ### Próximas mejoras
 - [ ] Incorporar series de TV con un dataset de TMDb TV.
 - [ ] Ampliar el catálogo más allá de 2016 con la API de TMDb.
-- [ ] Sustituir la disponibilidad aproximada por la real (TMDb *watch/providers*) en todo el catálogo.
+- [ ] Descargar la disponibilidad real (TMDb *watch/providers*, España) para todo el catálogo y usarla también en el filtro de plataformas.
 - [ ] Botones de "me gusta / no me gusta" para que el perfil aprenda durante la sesión.
 - [ ] Probar MovieLens 25M y factorización de matrices como componente colaborativo adicional.
