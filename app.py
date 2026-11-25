@@ -124,7 +124,15 @@ div.stButton > button:focus-visible { outline: 3px solid var(--ink); outline-off
 # --------------------------------------------------------------------------- recursos
 @st.cache_resource(show_spinner="Preparando el catálogo…")
 def get_recommender() -> Recommender:
-    return Recommender(load_catalog(), load_model(), load_metrics())
+    try:
+        model = load_model()
+    except Exception:  # p. ej. versión de scikit-learn distinta a la del entrenamiento
+        from queveo.data import load_ratings
+        from queveo.model import save, train_and_evaluate
+        res = train_and_evaluate(load_ratings(), load_catalog())
+        save(res)
+        model = res.model
+    return Recommender(load_catalog(), model, load_metrics())
 
 
 @st.cache_data(ttl=86400, show_spinner=False)
