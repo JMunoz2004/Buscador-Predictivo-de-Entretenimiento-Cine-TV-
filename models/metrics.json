@@ -1,0 +1,54 @@
+{
+  "n_train": 53106,
+  "n_test": 13603,
+  "n_users": 671,
+  "modelos": {
+    "Media global": {
+      "RMSE": 1.0563917337668203,
+      "MAE": 0.845169022196619,
+      "spearman_por_usuario": null,
+      "precision@5": 0.5879341864716635
+    },
+    "Media del usuario": {
+      "RMSE": 0.9642890911087292,
+      "MAE": 0.7491993445984401,
+      "spearman_por_usuario": null,
+      "precision@5": 0.5879341864716635
+    },
+    "Sesgos usuario + película": {
+      "RMSE": 0.9012668967791051,
+      "MAE": 0.6890775568671984,
+      "spearman_por_usuario": 0.34739541070508817,
+      "precision@5": 0.7129798903107861
+    },
+    "Solo contenido (GBM)": {
+      "RMSE": 0.9522160531919456,
+      "MAE": 0.7443498490605801,
+      "spearman_por_usuario": 0.37118285331091083,
+      "precision@5": 0.7155393053016453
+    },
+    "Híbrido (GBM perfil + contenido)": {
+      "RMSE": 0.8423961340594196,
+      "MAE": 0.6443458451758061,
+      "spearman_por_usuario": 0.39549599544797553,
+      "precision@5": 0.7352833638025594
+    }
+  },
+  "importancia_top": {
+    "vote_average": 0.1749,
+    "user_mean": 0.1417,
+    "aff_dot": 0.0119,
+    "year": 0.0081,
+    "log_budget": 0.007,
+    "log_votes": 0.0049,
+    "aff_min": 0.0043,
+    "user_pref_year": 0.0036,
+    "aff_Action": 0.0035,
+    "year_gap": 0.0028,
+    "aff_max": 0.0027,
+    "g_Comedy": 0.0026
+  },
+  "afinidad_p95": 0.4202169382341795,
+  "user_log_n_mediana": 3.912023005428146,
+  "media_global": 3.556326732524847
+}

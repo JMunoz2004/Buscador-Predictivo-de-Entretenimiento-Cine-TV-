@@ -90,7 +90,11 @@ MOODS = {
                    "Horror": -1.0, "Crime": -0.6, "War": -0.6, "Thriller": -0.5},
         "keywords": "family friendship animals kids adventure christmas talking animal",
     },
+    "🎲 Sorpréndeme": {"genres": {}, "keywords": ""},
 }
+
+# Pesos del match score (suman 1)
+MATCH_WEIGHTS = {"satisfaccion": 0.45, "animo": 0.25, "contenido": 0.20, "tiempo": 0.10}
 
 # Épocas: rango de años (inclusive)
 ERAS = {
